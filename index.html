@@ -304,7 +304,6 @@
     display: block;
     margin-bottom: 6px;
   }
-  /* Last box (seconds) number in gold */
   .countdown-box:last-child span {
     color: var(--gold);
   }
@@ -318,7 +317,6 @@
     display: block;
   }
 
-  /* Alternating Animations */
   @keyframes floatTopBottom {
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(-8px); }
@@ -327,14 +325,12 @@
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(8px); }
   }
-
   .countdown-box:nth-child(1) { animation: floatTopBottom 3.5s ease-in-out infinite; }
   .countdown-box:nth-child(2) { animation: floatBottomTop 3.5s ease-in-out infinite; }
   .countdown-box:nth-child(3) { animation: floatTopBottom 3.5s ease-in-out infinite; }
   .countdown-box:nth-child(4) { animation: floatBottomTop 3.5s ease-in-out infinite; }
 
-
-  /* TIMELINE */
+  /* ═══════════ TIMELINE ═══════════ */
   .timeline-container{max-width:450px;width:100%;margin:0 auto;position:relative;text-align:left;padding: 0 5px;}
   .timeline-line{position:absolute;left:15px;top:20px;bottom:20px;width:2px;background:var(--gold-border);}
   .timeline-item{position:relative;padding-left:38px;margin-bottom:1.2rem;}
@@ -358,24 +354,138 @@
   .event-item h4{font-size: clamp(0.75rem, 3.5vw, 0.95rem); text-transform:uppercase; letter-spacing:.02em; color:var(--dark); white-space: nowrap;}
   .event-item p{font-size:.85rem;color:var(--text-muted);margin-top:.2rem;}
 
-  /* CONTACT */
-  .contact-row{
-    display:flex;justify-content:space-between;align-items:center;
-    border:1.5px solid #f0e6d2;border-radius:14px;padding:1rem;
-    margin-bottom:0.8rem;background:#fff;text-align:left;flex-wrap: nowrap; 
+  /* ═══════════ NEW CONTACT US DESIGN ═══════════ */
+  .contact-card-wrapper {
+    background: #fff;
+    border: 1.5px solid var(--gold);
+    border-radius: 24px;
+    padding: 2.5rem 1.2rem;
+    max-width: 480px;
+    width: 100%;
+    margin: 0 auto;
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.04);
   }
-  .contact-info{flex: 1; padding-right: 5px;}
-  .contact-info h4{font-size:1rem;text-transform:uppercase;letter-spacing:.03em;color:var(--dark);line-height: 1.1;}
-  .contact-info p{font-size:.7rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.05em;margin-top:.3rem;}
-  
-  .contact-buttons{display:flex;gap:.4rem;flex-shrink: 0;}
-  .btn-circle{
-    width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;
-    text-decoration:none;color:#fff;font-size:1rem;transition:.2s;
+  /* Double border effect */
+  .contact-card-wrapper::before {
+    content: '';
+    position: absolute;
+    inset: 6px;
+    border: 1px solid var(--gold);
+    border-radius: 18px;
+    pointer-events: none;
   }
-  .btn-circle:active{transform:scale(0.95);}
-  .btn-dark{background:#2b2118;}
-  .btn-green{background:#25D366;}
+  .contact-header-icon {
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    background: #fdfbf5;
+    border: 1px solid var(--gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.2rem auto;
+    position: relative;
+    z-index: 2;
+  }
+  .contact-header-icon svg {
+    width: 24px;
+    height: 24px;
+    fill: var(--gold);
+  }
+  .contact-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem;
+    font-weight: 600;
+    color: var(--dark);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.2rem;
+  }
+  .contact-subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1rem;
+    color: var(--text-muted);
+    margin-bottom: 2rem;
+  }
+  .contact-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    position: relative;
+    z-index: 2;
+  }
+  .contact-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #faf9f7;
+    border: 1px solid #f0ece1;
+    border-radius: 20px;
+    padding: 1.2rem;
+    text-align: left;
+    transition: transform 0.2s ease;
+  }
+  .contact-item:active {
+    transform: scale(0.98);
+  }
+  .contact-info {
+    flex: 1;
+    padding-right: 10px;
+  }
+  .contact-info h4 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--dark);
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    margin-bottom: 0.3rem;
+    line-height: 1.1;
+  }
+  .contact-info p {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #8c857d;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .contact-actions {
+    display: flex;
+    gap: 8px;
+    flex-shrink: 0;
+  }
+  .action-btn {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    transition: transform 0.2s ease;
+  }
+  .action-btn:active {
+    transform: scale(0.9);
+  }
+  .action-btn svg {
+    width: 20px;
+    height: 20px;
+  }
+  .phone-btn {
+    background: #231f20;
+  }
+  .phone-btn svg {
+    fill: #f4d58d; /* Gold color for the phone icon */
+  }
+  .wa-btn {
+    background: #25d366;
+  }
+  .wa-btn svg {
+    fill: #ffffff;
+  }
 
   /* FOOTER */
   .footer{padding:2rem 1rem 4rem;text-align:center;}
@@ -534,7 +644,7 @@
     </div>
   </section>
 
-  <!-- COUNTDOWN (NEW DESIGN) -->
+  <!-- COUNTDOWN -->
   <section class="countdown-section slide-anim anim-from-left">
     <p class="script-text">With Love &amp; Anticipation</p>
     <h2 class="countdown-title">Counting Down To<br>Forever</h2>
@@ -568,28 +678,23 @@
       
       <div class="carousel-container">
         <div class="carousel-track" id="carouselTrack">
-          <!-- Slide 1 -->
           <div class="carousel-slide">
             <img src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Moment 1">
             <div class="slide-caption">FRIENDS. LOVERS. FOREVER.</div>
           </div>
-          <!-- Slide 2 -->
           <div class="carousel-slide">
             <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Moment 2">
             <div class="slide-caption">OUR JOURNEY BEGINS</div>
           </div>
-          <!-- Slide 3 -->
           <div class="carousel-slide">
             <img src="https://images.unsplash.com/photo-1519741497674-611481863552?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Moment 3">
             <div class="slide-caption">TO HAVE AND TO HOLD</div>
           </div>
         </div>
-        <!-- Controls -->
         <button class="carousel-btn prev" id="prevBtn">&#10094;</button>
         <button class="carousel-btn next" id="nextBtn">&#10095;</button>
       </div>
 
-      <!-- Dots -->
       <div class="carousel-dots" id="carouselDots">
         <span class="dot active" data-index="0"></span>
         <span class="dot" data-index="1"></span>
@@ -719,44 +824,70 @@
     </div>
   </section>
 
-  <!-- CONTACT US -->
+  <!-- ═══════════ NEW CONTACT US SECTION ═══════════ -->
   <section class="contact-section slide-anim anim-from-left">
-    <div class="main-card">
-      <div class="icon-circle">📞</div>
-      <h2>Contact Us</h2>
-      <p class="sub">For queries, blessings, and assistance</p>
-
-      <div class="contact-row">
-        <div class="contact-info">
-          <h4>Mr. Jacob Sr.</h4>
-          <p>Father of the Groom</p>
-        </div>
-        <div class="contact-buttons">
-          <a href="tel:+910000000000" class="btn-circle btn-dark">📞</a>
-          <a href="https://wa.me/910000000000" class="btn-circle btn-green">💬</a>
-        </div>
-      </div>
-
-      <div class="contact-row">
-        <div class="contact-info">
-          <h4>Mr. David Jacob</h4>
-          <p>Brother of the Groom</p>
-        </div>
-        <div class="contact-buttons">
-          <a href="tel:+910000000000" class="btn-circle btn-dark">📞</a>
-          <a href="https://wa.me/910000000000" class="btn-circle btn-green">💬</a>
-        </div>
-      </div>
+    <div class="contact-card-wrapper">
       
-      <div class="contact-row" style="margin-bottom:0;">
-        <div class="contact-info">
-          <h4>Mr. Thomas Kiruba</h4>
-          <p>Brother of the Bride</p>
+      <!-- Top Icon -->
+      <div class="contact-header-icon">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56a.977.977 0 0 0-1.01.24l-1.57 1.97c-2.83-1.35-5.48-3.9-6.89-6.83l1.95-1.66c.27-.28.35-.67.24-1.02-.37-1.11-.56-2.3-.56-3.53 0-.54-.45-.99-.99-.99H4.19C3.65 3 3 3.24 3 3.99 3 13.28 10.73 21 20.03 21c.71 0 .99-.61.99-1.05v-3.56c0-.55-.45-1-1-1z"/>
+        </svg>
+      </div>
+
+      <h2 class="contact-title">Contact Us</h2>
+      <p class="contact-subtitle">For queries, blessings, and assistance</p>
+
+      <div class="contact-list">
+        
+        <!-- Contact 1 -->
+        <div class="contact-item">
+          <div class="contact-info">
+            <h4>Mr. Jacob Sr.</h4>
+            <p>Father of the Groom</p>
+          </div>
+          <div class="contact-actions">
+            <a href="tel:+910000000000" class="action-btn phone-btn">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56a.977.977 0 0 0-1.01.24l-1.57 1.97c-2.83-1.35-5.48-3.9-6.89-6.83l1.95-1.66c.27-.28.35-.67.24-1.02-.37-1.11-.56-2.3-.56-3.53 0-.54-.45-.99-.99-.99H4.19C3.65 3 3 3.24 3 3.99 3 13.28 10.73 21 20.03 21c.71 0 .99-.61.99-1.05v-3.56c0-.55-.45-1-1-1z"/></svg>
+            </a>
+            <a href="https://wa.me/910000000000" class="action-btn wa-btn">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+            </a>
+          </div>
         </div>
-        <div class="contact-buttons">
-          <a href="tel:+910000000000" class="btn-circle btn-dark">📞</a>
-          <a href="https://wa.me/910000000000" class="btn-circle btn-green">💬</a>
+
+        <!-- Contact 2 -->
+        <div class="contact-item">
+          <div class="contact-info">
+            <h4>Mr. David Jacob</h4>
+            <p>Brother of the Groom</p>
+          </div>
+          <div class="contact-actions">
+            <a href="tel:+910000000000" class="action-btn phone-btn">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56a.977.977 0 0 0-1.01.24l-1.57 1.97c-2.83-1.35-5.48-3.9-6.89-6.83l1.95-1.66c.27-.28.35-.67.24-1.02-.37-1.11-.56-2.3-.56-3.53 0-.54-.45-.99-.99-.99H4.19C3.65 3 3 3.24 3 3.99 3 13.28 10.73 21 20.03 21c.71 0 .99-.61.99-1.05v-3.56c0-.55-.45-1-1-1z"/></svg>
+            </a>
+            <a href="https://wa.me/910000000000" class="action-btn wa-btn">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+            </a>
+          </div>
         </div>
+
+        <!-- Contact 3 -->
+        <div class="contact-item">
+          <div class="contact-info">
+            <h4>Mr. Thomas Kiruba</h4>
+            <p>Brother of the Bride</p>
+          </div>
+          <div class="contact-actions">
+            <a href="tel:+910000000000" class="action-btn phone-btn">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56a.977.977 0 0 0-1.01.24l-1.57 1.97c-2.83-1.35-5.48-3.9-6.89-6.83l1.95-1.66c.27-.28.35-.67.24-1.02-.37-1.11-.56-2.3-.56-3.53 0-.54-.45-.99-.99-.99H4.19C3.65 3 3 3.24 3 3.99 3 13.28 10.73 21 20.03 21c.71 0 .99-.61.99-1.05v-3.56c0-.55-.45-1-1-1z"/></svg>
+            </a>
+            <a href="https://wa.me/910000000000" class="action-btn wa-btn">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+            </a>
+          </div>
+        </div>
+
       </div>
     </div>
   </section>
