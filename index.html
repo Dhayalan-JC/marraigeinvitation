@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Jacob & Kiruba — Wedding</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&family=Great+Vibes&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --gold:#c9a227;
+    --gold-light:#fdf9f0;
+    --gold-border:rgba(201, 162, 39, 0.4);
+    --cream:#fcfaf5;
+    --dark:#2b2118;
+    --text-muted:#6b635b;
+  }
+  *{margin:0;padding:0;box-sizing:border-box; -webkit-tap-highlight-color: transparent;}
+  body{
+    font-family:'Cormorant Garamond',serif;
+    background:var(--cream);
+    color:var(--dark);
+    overflow-x:hidden;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  /* ═══════════ DOOR OPENER ═══════════ */
+  #opener{
+    position:fixed;inset:0;z-index:9999;
+    display:flex;align-items:center;justify-content:center;
+    perspective:1400px;perspective-origin:50% 50%;
+    cursor:pointer;overflow:hidden;
+  }
+  .door{
+    position:absolute;top:0;bottom:0;width:50%;
+    background:
+      radial-gradient(circle at 30% 20%,rgba(255,255,255,.55),transparent 55%),
+      radial-gradient(circle at 70% 80%,rgba(255,255,255,.35),transparent 55%),
+      linear-gradient(160deg,#fdf9f0 0%,#f3e3bd 55%,#e5c655 100%);
+    box-shadow:inset 0 0 80px rgba(201,162,39,.28);
+    transition:transform 1.4s cubic-bezier(.77,0,.18,1);
+    will-change:transform;
+  }
+  .door::before{content:'';position:absolute;inset:15px;border:1px solid rgba(201,162,39,.45);pointer-events:none;}
+  .door::after{content:'';position:absolute;inset:22px;border:1px dashed rgba(201,162,39,.3);pointer-events:none;}
+  .door.left{left:0;transform-origin:left center;}
+  .door.right{right:0;transform-origin:right center;}
+  
+  #seal{
+    position:relative;z-index:2;width:130px;height:130px;border-radius:50%;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    background:radial-gradient(circle at 35% 30%,#f9e9a8,#e5c655 45%,#a67c1a 100%);
+    box-shadow:0 10px 30px rgba(166,124,26,.55),inset 0 -4px 12px rgba(0,0,0,.25),inset 0 3px 8px rgba(255,255,255,.55);
+    color:#fff;text-align:center;line-height:1;
+    animation:pulse 2.8s ease-in-out infinite;
+    transition:transform .6s ease,opacity .6s ease;
+    user-select:none;
+  }
+  
+  .seal-svg{ width: 50px; height: auto; margin-bottom: 6px; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3)); }
+  #seal .tap{font-family:'Great Vibes',cursive;font-size:1.3rem;text-shadow:0 1px 2px rgba(0,0,0,.35);}
+  
+  @keyframes pulse{
+    0%,100%{transform:scale(1);box-shadow:0 10px 30px rgba(166,124,26,.55),inset 0 -4px 12px rgba(0,0,0,.25),inset 0 3px 8px rgba(255,255,255,.55);}
+    50%{transform:scale(1.06);box-shadow:0 14px 42px rgba(166,124,26,.7),inset 0 -4px 12px rgba(0,0,0,.25),inset 0 3px 8px rgba(255,255,255,.55);}
+  }
+  #opener.opening .door.left{transform:translateX(-100%) rotateY(6deg);}
+  #opener.opening .door.right{transform:translateX(100%) rotateY(-6deg);}
+  #opener.opening #seal{transform:scale(.4) rotate(-30deg);opacity:0;}
+  #opener.opening{pointer-events:none;}
+
+  /* ═══════════ MAIN SITE ═══════════ */
+  #site{opacity:0;transition:opacity 1s ease .25s;}
+  #site.revealed{opacity:1;}
+  
+  section{padding:2.5rem 1rem;text-align:center;display:flex;flex-direction:column;align-items:center;position:relative; overflow:hidden;}
+  h1{font-family:'Great Vibes',cursive;font-size:clamp(2.8rem, 10vw, 3.5rem);color:var(--gold);line-height:1.1;}
+  h2{font-size:clamp(1.3rem, 5vw, 1.6rem);text-transform:uppercase;letter-spacing:.05em;margin-bottom:.4rem;color:var(--dark);white-space: nowrap;}
+  .sub{opacity:.7;margin-bottom:1.5rem;font-style:italic;font-size:0.95rem;color:var(--text-muted);}
+  
+  /* ═══════════ HERO ═══════════ */
+  .hero{
+    padding-top:0; 
+    background: linear-gradient(180deg, #fffdf8 0%, var(--cream) 100%);
+    border-bottom: 1px solid var(--gold-border);
+    padding-bottom: 3rem;
+  }
+  
+  .ribbon-wrapper{
+    width: 100%; position: absolute; top: 0; left: 0; z-index: 10;
+    transform: translateY(-150%); transition: transform 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) 0.2s;
+  }
+  #site.revealed .ribbon-wrapper { transform: translateY(0); }
+  .ribbon-svg {width: 100%;height:120px;display: block;filter: drop-shadow(0 10px 10px rgba(0,0,0,0.15));}
+
+  .god-icon{
+    margin: 130px auto 1rem auto; position: relative; z-index: 2;
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; transform: translateY(-30px); transition: all 0.8s ease 0.6s;
+  }
+  .god-icon svg {
+    width: clamp(60px, 15vw, 85px); height: auto;
+    filter: drop-shadow(0 4px 6px rgba(0,0,0,0.15));
+  }
+  #site.revealed .god-icon { opacity: 1; transform: translateY(0); }
+
+  .shloka{letter-spacing:.25em;font-size:.85rem;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:.5rem;z-index:2;position:relative;
+    opacity: 0; transform: translateY(-20px); transition: all 0.8s ease 0.8s;}
+  #site.revealed .shloka { opacity: 1; transform: translateY(0); }
+
+  .getting{font-size:1rem;letter-spacing:.15em;text-transform:uppercase;color:var(--text-muted);margin-bottom:2rem;z-index:2;position:relative;
+    opacity: 0; transition: opacity 0.8s ease 1s;}
+  #site.revealed .getting { opacity: 1; }
+
+  .person-block{display:flex;flex-direction:column;align-items:center;width:100%;}
+  .parents{font-size:0.95rem;color:var(--text-muted);margin:0.8rem 0 .6rem 0;line-height:1.3;font-weight:600;}
+  .edu-pill{
+    background:var(--gold-light);border:1px solid var(--gold-border);
+    padding:.25rem 1rem;border-radius:30px;font-size:.75rem;font-weight:700;
+    color:var(--text-muted);text-transform:uppercase;letter-spacing:.05em;
+  }
+  .amp-divider{
+    display:flex;align-items:center;justify-content:center;
+    color:var(--gold);font-family:'Great Vibes',cursive;font-size:2.2rem;margin:1.2rem 0;
+  }
+  .amp-divider::before,.amp-divider::after{content:'';height:1px;width:40px;background:var(--gold);opacity:.4;margin:0 1rem;}
+
+  .anim-left{opacity:0;transform:translateX(-60px);transition:all 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) 1.2s;}
+  .anim-right{opacity:0;transform:translateX(60px);transition:all 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) 1.6s;}
+  #site.revealed .anim-left, #site.revealed .anim-right{opacity:1;transform:translateX(0);}
+
+  .hero-photo{
+    width:90%;max-width:360px;height:380px;margin:1.5rem auto 0;border-radius:16px;overflow:hidden;
+    position:relative;background:#f0f0f0;border: 4px solid #fff;
+    box-shadow: 0 10px 30px rgba(0,0,0,.08), 0 0 0 1px var(--gold-border);
+  }
+  .hero-photo img{width:100%;height:100%;object-fit:cover;filter:brightness(.9);}
+  .swipe-btn{
+    position:absolute;bottom:15px;left:50%;transform:translateX(-50%);
+    background:rgba(43,33,24,.85);color:#fff;padding:.7rem 1.5rem;
+    border-radius:30px;font-size:.75rem;font-weight:600;letter-spacing:.1em;
+    text-transform:uppercase;backdrop-filter:blur(4px);border:1px solid var(--gold);
+    white-space:nowrap;animation:float 2s ease-in-out infinite;text-align:center;
+  }
+  @keyframes float{0%,100%{transform:translate(-50%,0);}50%{transform:translate(-50%,5px);}}
+
+  /* ═══════════ SCROLL ANIMATIONS ═══════════ */
+  .slide-anim {
+    opacity: 0;
+    transition: opacity 1s ease, transform 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .slide-anim.anim-from-left { transform: translateX(-80px); }
+  .slide-anim.anim-from-right { transform: translateX(80px); }
+  .slide-anim.appear { opacity: 1; transform: translateX(0); }
+
+  /* ═══════════ MAIN CARD STYLE ═══════════ */
+  .main-card{
+    background:#fff;border:1.5px solid var(--gold-border);border-radius:20px;
+    padding:2rem 1rem;max-width:450px;width:100%;margin:0 auto;
+    box-shadow:0 10px 30px rgba(0,0,0,.03);position:relative;
+  }
+  .icon-circle{
+    width:45px;height:45px;border-radius:50%;background:var(--gold-light);
+    border:1px solid var(--gold-border);display:flex;align-items:center;justify-content:center;
+    font-size:1.2rem;margin:0 auto 0.8rem auto;color:var(--gold);
+  }
+
+  .play{padding:0.8rem 1.5rem;border:2px solid var(--gold);background:transparent;color:var(--gold);
+    font-family:inherit;font-size:0.95rem;border-radius:50px;cursor:pointer;transition:.3s;font-weight:600;}
+  .play:active{background:var(--gold);color:#fff;}
+
+  /* TIMELINE */
+  .timeline-container{max-width:450px;width:100%;margin:0 auto;position:relative;text-align:left;padding: 0 5px;}
+  .timeline-line{position:absolute;left:15px;top:20px;bottom:20px;width:2px;background:var(--gold-border);}
+  .timeline-item{position:relative;padding-left:38px;margin-bottom:1.2rem;}
+  .timeline-dot{position:absolute;left:6px;top:22px;width:18px;height:18px;border-radius:50%;background:#fff;border:2px solid var(--gold);z-index:2;}
+  .timeline-dot::after{content:"";position:absolute;inset:3px;border-radius:50%;background:var(--gold);}
+  .timeline-card{background:#fff;border:1.5px solid var(--gold-border);border-radius:14px;padding:1rem 1.2rem;box-shadow:0 4px 15px rgba(0,0,0,.02);position:relative;}
+  .timeline-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:.3rem;gap:5px; flex-wrap: nowrap;}
+  .timeline-header h3{font-size:clamp(0.85rem, 4vw, 1.05rem);text-transform:uppercase;letter-spacing:.02em;line-height:1.2;white-space: nowrap;}
+  .time-badge{background:var(--gold-light);border:1px solid var(--gold);color:var(--gold);padding:.15rem .5rem;border-radius:20px;font-family:inherit;font-size:.7rem;font-weight:700;white-space:nowrap;}
+  .timeline-card p{color:var(--text-muted);font-size:.85rem;margin-bottom:.3rem;}
+  .timeline-card em{color:#3a7a5c;font-style:italic;font-size:.85rem;display:flex;align-items:center;gap:5px;}
+
+  /* DRESS & EVENTS */
+  .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;margin-top:1.2rem;text-align:left;}
+  .inner-card{background:var(--gold-light);border:1px solid #f0e6d2;border-radius:14px;padding:1rem;}
+  .inner-card h4{font-size:.8rem;text-transform:uppercase;letter-spacing:.05em;margin-bottom:.4rem;color:var(--dark);display:flex;align-items:center;gap:4px;}
+  .inner-card p{font-size:.85rem;color:var(--text-muted);line-height:1.4;}
+
+  .event-list{display:flex;flex-direction:column;gap:0.8rem;margin-top:1.2rem;text-align:left;}
+  .event-item{border:1.5px solid #f0e6d2;border-radius:14px;padding:0.9rem 1rem;display:flex;justify-content:space-between;align-items:center;gap: 8px;}
+  .event-item h4{font-size: clamp(0.75rem, 3.5vw, 0.95rem); text-transform:uppercase; letter-spacing:.02em; color:var(--dark); white-space: nowrap;}
+  .event-item p{font-size:.85rem;color:var(--text-muted);margin-top:.2rem;}
+
+  /* CONTACT */
+  .contact-row{
+    display:flex;justify-content:space-between;align-items:center;
+    border:1.5px solid #f0e6d2;border-radius:14px;padding:1rem;
+    margin-bottom:0.8rem;background:#fff;text-align:left;flex-wrap: nowrap; 
+  }
+  .contact-info{flex: 1; padding-right: 5px;}
+  .contact-info h4{font-size:1rem;text-transform:uppercase;letter-spacing:.03em;color:var(--dark);line-height: 1.1;}
+  .contact-info p{font-size:.7rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.05em;margin-top:.3rem;}
+  
+  .contact-buttons{display:flex;gap:.4rem;flex-shrink: 0;}
+  .btn-circle{
+    width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+    text-decoration:none;color:#fff;font-size:1rem;transition:.2s;
+  }
+  .btn-circle:active{transform:scale(0.95);}
+  .btn-dark{background:#2b2118;}
+  .btn-green{background:#25D366;}
+
+  /* FOOTER */
+  .footer{padding:2rem 1rem 4rem;text-align:center;}
+  .footer h2{font-family:'Great Vibes',cursive;text-transform:none;color:var(--gold);font-size:2.2rem;margin-bottom:0.8rem;}
+  .footer p{text-transform:uppercase;letter-spacing:.1em;font-size:.75rem;color:var(--text-muted);margin-bottom:1.5rem;}
+  .footer .credits{font-size:.7rem;border-top:1px solid #eee;padding-top:1.5rem;display:inline-block; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase;}
+
+  /* SCRATCH CARD */
+  .scratch-wrapper{position:relative;width:180px;height:180px;margin:1.2rem auto;border-radius:50%;overflow:hidden;box-shadow:0 4px 20px rgba(201,162,39,.35),0 0 0 3px var(--gold),0 0 0 7px #fff,0 0 0 8px var(--gold);}
+  .scratch-reveal{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;background:radial-gradient(circle,#fffdf8,#faf1dd);}
+  .scratch-reveal .month{font-family:'Great Vibes',cursive;font-size:1.4rem;color:var(--gold);line-height:1;}
+  .scratch-reveal .date-num{font-family:'Great Vibes',cursive;font-size:3rem;color:var(--dark);line-height:.9;}
+  .scratch-reveal .year{font-size:.75rem;letter-spacing:.15em;color:var(--text-muted);margin-top:.2rem;}
+  #scratchCanvas{position:absolute;inset:0;width:100%;height:100%;touch-action:none;transition:opacity .8s ease;cursor:pointer;}
+
+  /* COUNTDOWN */
+  .countdown{display:flex;gap:0.6rem;justify-content:center;flex-wrap:wrap;margin-top:1.2rem;}
+  .countdown div{min-width:65px;background:#fff;border:1px solid var(--gold-border);border-radius:10px;padding:0.8rem 0.4rem;}
+  .countdown span{display:block;font-size:1.8rem;color:var(--gold);font-weight:600;line-height:1;}
+  .countdown small{font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);margin-top:5px;display:block;}
+
+  #confettiCanvas{position:fixed;inset:0;pointer-events:none;z-index:9999;display:none;}
+</style>
+</head>
+<body>
+
+<!-- ═══════════ DOOR OPENER ═══════════ -->
+<div id="opener">
+  <div class="door left"></div>
+  <div class="door right"></div>
+  <div id="seal">
+    <svg class="seal-svg" viewBox="0 0 100 140" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="gold1" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#fdf4c5" />
+          <stop offset="30%" stop-color="#e8c14a" />
+          <stop offset="70%" stop-color="#c2932b" />
+          <stop offset="100%" stop-color="#8f6300" />
+        </linearGradient>
+        <linearGradient id="ruby" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#ff6b6b" />
+          <stop offset="50%" stop-color="#cc0000" />
+          <stop offset="100%" stop-color="#660000" />
+        </linearGradient>
+      </defs>
+      <path d="M 42 5 Q 50 -5 58 5 Q 65 5 65 15 Q 65 25 58 28 L 58 55 L 85 55 Q 95 55 95 65 Q 95 75 85 75 L 58 75 L 58 125 Q 65 130 65 135 Q 65 145 50 145 Q 35 145 35 135 Q 35 130 42 125 L 42 75 L 15 75 Q 5 75 5 65 Q 5 55 15 55 L 42 55 L 42 28 Q 35 25 35 15 Q 35 5 42 5 Z" fill="url(#gold1)" stroke="#8f6300" stroke-width="2" stroke-linejoin="round" />
+      <path d="M 45 12 Q 50 6 55 12 Q 60 15 58 22 L 58 60 L 88 60 Q 90 60 90 65 Q 90 70 88 70 L 58 70 L 58 128 Q 55 135 50 135 Q 45 135 42 128 L 42 70 L 12 70 Q 10 70 10 65 Q 10 60 12 60 L 42 60 L 42 22 Q 40 15 45 12 Z" fill="none" stroke="#fdf4c5" stroke-width="1.5" />
+      <path d="M 50 16 L 55 22 L 50 28 L 45 22 Z" fill="url(#ruby)" stroke="#660000" stroke-width="0.5" />
+      <path d="M 50 122 L 55 128 L 50 134 L 45 128 Z" fill="url(#ruby)" stroke="#660000" stroke-width="0.5" />
+      <path d="M 22 65 L 28 60 L 34 65 L 28 70 Z" fill="url(#ruby)" stroke="#660000" stroke-width="0.5" />
+      <path d="M 78 65 L 72 60 L 66 65 L 72 70 Z" fill="url(#ruby)" stroke="#660000" stroke-width="0.5" />
+      <path d="M 50 62 L 54 65 L 50 68 L 46 65 Z" fill="url(#ruby)" stroke="#660000" stroke-width="0.5" />
+    </svg>
+    <span class="tap">Tap to open</span>
+  </div>
+</div>
+
+<!-- ═══════════ MAIN SITE ═══════════ -->
+<main id="site">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="ribbon-wrapper">
+      <svg class="ribbon-svg" viewBox="0 0 1000 200" preserveAspectRatio="none">
+        <defs>
+          <linearGradient id="goldBar" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#c59b27"/><stop offset="50%" stop-color="#f3d47a"/><stop offset="100%" stop-color="#b8860b"/>
+          </linearGradient>
+          <linearGradient id="goldSwag" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#e6c27a"/><stop offset="30%" stop-color="#d4af37"/><stop offset="100%" stop-color="#8a6300"/>
+          </linearGradient>
+          <linearGradient id="goldSideLeft" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#b8860b"/><stop offset="50%" stop-color="#f3d47a"/><stop offset="100%" stop-color="#8a6300"/>
+          </linearGradient>
+          <linearGradient id="goldSideRight" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#8a6300"/><stop offset="50%" stop-color="#f3d47a"/><stop offset="100%" stop-color="#b8860b"/>
+          </linearGradient>
+        </defs>
+        <rect x="0" y="0" width="1000" height="20" fill="url(#goldBar)" />
+        <path d="M0,20 L90,20 Q120,80 40,180 L0,180 Z" fill="url(#goldSideLeft)" />
+        <path d="M1000,20 L910,20 Q880,80 960,180 L1000,180 Z" fill="url(#goldSideRight)" />
+        <path d="M0,20 Q500,180 1000,20 L1000,40 Q500,210 0,40 Z" fill="url(#goldSwag)" />
+        <path d="M0,20 Q500,180 1000,20 L1000,25 Q500,185 0,25 Z" fill="#f9e9a8" opacity="0.6" />
+      </svg>
+    </div>
+
+    <div class="god-icon">
+      <svg viewBox="0 0 100 140" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="gold1_hero" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#fdf4c5" />
+            <stop offset="30%" stop-color="#e8c14a" />
+            <stop offset="70%" stop-color="#c2932b" />
+            <stop offset="100%" stop-color="#8f6300" />
+          </linearGradient>
+          <linearGradient id="ruby_hero" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#ff6b6b" />
+            <stop offset="50%" stop-color="#cc0000" />
+            <stop offset="100%" stop-color="#660000" />
+          </linearGradient>
+        </defs>
+        <path d="M 42 5 Q 50 -5 58 5 Q 65 5 65 15 Q 65 25 58 28 L 58 55 L 85 55 Q 95 55 95 65 Q 95 75 85 75 L 58 75 L 58 125 Q 65 130 65 135 Q 65 145 50 145 Q 35 145 35 135 Q 35 130 42 125 L 42 75 L 15 75 Q 5 75 5 65 Q 5 55 15 55 L 42 55 L 42 28 Q 35 25 35 15 Q 35 5 42 5 Z" fill="url(#gold1_hero)" stroke="#8f6300" stroke-width="2" stroke-linejoin="round" />
+        <path d="M 45 12 Q 50 6 55 12 Q 60 15 58 22 L 58 60 L 88 60 Q 90 60 90 65 Q 90 70 88 70 L 58 70 L 58 128 Q 55 135 50 135 Q 45 135 42 128 L 42 70 L 12 70 Q 10 70 10 65 Q 10 60 12 60 L 42 60 L 42 22 Q 40 15 45 12 Z" fill="none" stroke="#fdf4c5" stroke-width="1.5" />
+        <path d="M 50 16 L 55 22 L 50 28 L 45 22 Z" fill="url(#ruby_hero)" stroke="#660000" stroke-width="0.5" />
+        <path d="M 50 122 L 55 128 L 50 134 L 45 128 Z" fill="url(#ruby_hero)" stroke="#660000" stroke-width="0.5" />
+        <path d="M 22 65 L 28 60 L 34 65 L 28 70 Z" fill="url(#ruby_hero)" stroke="#660000" stroke-width="0.5" />
+        <path d="M 78 65 L 72 60 L 66 65 L 72 70 Z" fill="url(#ruby_hero)" stroke="#660000" stroke-width="0.5" />
+        <path d="M 50 62 L 54 65 L 50 68 L 46 65 Z" fill="url(#ruby_hero)" stroke="#660000" stroke-width="0.5" />
+      </svg>
+    </div>
+    
+    <p class="shloka">|| In the Name of Jesus ||</p>
+    <p class="getting">We're getting married 🤍</p>
+
+    <div class="person-block anim-left">
+      <h1>Jacob</h1>
+      <p class="parents">Son of Mr. &amp; Mrs. Jacob</p>
+      <span class="edu-pill">Business Analyst | MBA</span>
+    </div>
+
+    <div class="amp-divider">&amp;</div>
+
+    <div class="person-block anim-right">
+      <h1>Kiruba</h1>
+      <p class="parents">Daughter of Mr. &amp; Mrs. Kiruba</p>
+      <span class="edu-pill">HR Professional | BMS</span>
+    </div>
+
+    <div class="hero-photo slide-anim anim-from-right">
+      <img src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Jacob & Kiruba">
+      <div class="swipe-btn">Swipe Down <br>↓</div>
+    </div>
+  </section>
+
+  <!-- THEME SONG -->
+  <section class="song slide-anim anim-from-left">
+    <div class="main-card">
+      <div class="icon-circle">🎵</div>
+      <h2>Our Theme Song</h2>
+      <p class="sub">Interactive Card</p>
+      <button id="playBtn" class="play">▶ Play Titanic Theme</button>
+      <audio id="audio" loop src="song.mp3"></audio>
+    </div>
+  </section>
+
+  <!-- SCRATCH TO REVEAL -->
+  <section class="scratch-section slide-anim anim-from-right">
+    <div class="main-card">
+      <div class="icon-circle">✨</div>
+      <h2>Scratch to Reveal</h2>
+      <p class="sub">Rub your finger to uncover the date</p>
+      
+      <div class="scratch-wrapper">
+        <div class="scratch-reveal">
+          <span class="month">December</span>
+          <span class="date-num">12</span>
+          <span class="year">2026 &middot; 7:00 PM</span>
+        </div>
+        <canvas id="scratchCanvas"></canvas>
+      </div>
+      <p style="font-style:italic; color:var(--text-muted); font-size:0.8rem; margin-top:0.5rem;">Scratch the circle to reveal</p>
+    </div>
+  </section>
+
+  <!-- COUNTDOWN -->
+  <section class="countdown-section slide-anim anim-from-left">
+    <h2>Counting Down</h2>
+    <p class="sub">To Forever</p>
+    <div class="countdown">
+      <div><span id="d">00</span><small>Days</small></div>
+      <div><span id="h">00</span><small>Hours</small></div>
+      <div><span id="m">00</span><small>Mins</small></div>
+      <div><span id="s">00</span><small>Secs</small></div>
+    </div>
+  </section>
+
+  <!-- PROGRAM TIMELINE -->
+  <section class="timeline-section slide-anim anim-from-right">
+    <div class="icon-circle">⏱</div>
+    <h2>Program Timeline</h2>
+    <p class="sub">Order of Events for our Blessed Day</p>
+
+    <div class="timeline-container">
+      <div class="timeline-line"></div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-card">
+          <div class="timeline-header">
+            <h3>Guest Arrival</h3>
+            <span class="time-badge">07:00 PM</span>
+          </div>
+          <p>Dec 12th, 2026 • Welcome drinks</p>
+          <em>We welcome you 🤍</em>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-card">
+          <div class="timeline-header">
+            <h3>Reception Dinner</h3>
+            <span class="time-badge">09:00 PM</span>
+          </div>
+          <p>Dec 12, 2026 • Music &amp; toasts</p>
+          <em style="color:#d9534f;">Feast, Love &amp; Laughter ❤️</em>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-card">
+          <div class="timeline-header">
+            <h3>Wedding Ceremony</h3>
+            <span class="time-badge">09:30 PM</span>
+          </div>
+          <p>Dec 12, 2026</p>
+          <em style="color:var(--gold);">Two hearts, one love ✨</em>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-card">
+          <div class="timeline-header">
+            <h3>Bidaai Ceremony</h3>
+            <span class="time-badge">05:30 AM</span>
+          </div>
+          <p>Dec 13, 2026</p>
+          <em style="color:#d9534f;">Farewell with love ❤️</em>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DRESS CODE -->
+  <section class="dress-section slide-anim anim-from-left">
+    <div class="main-card">
+      <div class="icon-circle">👕</div>
+      <h2>Dress Code</h2>
+      <p class="sub">We would love to see you in our theme!</p>
+      
+      <div class="grid-2">
+        <div class="inner-card">
+          <h4>🚺 Women</h4>
+          <p>Elegant formal attire in pastel tones, sage greens, or rose gold gowns.</p>
+        </div>
+        <div class="inner-card">
+          <h4>🚹 Men</h4>
+          <p>Formal black tie, bespoke tailored suit, or traditional festive wear.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRE-WEDDING EVENTS -->
+  <section class="events-section slide-anim anim-from-right">
+    <div class="main-card">
+      <p style="font-family:'Great Vibes',cursive; font-size:1.5rem; color:var(--gold); margin-bottom:0.3rem;">Join the Festivities</p>
+      <h2>Pre-Wedding Events</h2>
+      
+      <div class="event-list">
+        <div class="event-item">
+          <div>
+            <h4>Mehendi Night</h4>
+            <p>Dec 10, 2026 • 6:30 PM</p>
+          </div>
+        </div>
+        <div class="event-item">
+          <div>
+            <h4>Haldi Ceremony &amp; DJ Party</h4>
+            <p>Dec 11, 2026 • 6:30 PM</p>
+          </div>
+          <div style="color:var(--gold); font-size:1rem;">⚙️</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRANSPORTATION & GIFTS -->
+  <section class="info-section slide-anim anim-from-left" style="padding-top:0;">
+    <div class="main-card" style="margin-bottom:1rem; padding:1.2rem; text-align:left; display:flex; gap:0.8rem; align-items:flex-start;">
+      <div class="icon-circle" style="margin:0; background:#e8f5e9; color:#3a7a5c; border-color:#c8e6c9; flex-shrink:0;">🚌</div>
+      <div>
+        <h4 style="font-size:1rem; text-transform:uppercase; margin-bottom:.2rem;">Transportation Available</h4>
+        <p style="color:var(--text-muted); font-size:.85rem; line-height:1.4;">Complimentary transportation from the Groom's Residence at 3:30 PM.</p>
+      </div>
+    </div>
+
+    <div class="main-card" style="padding:1.5rem 1rem; text-align:center;">
+      <h4 style="font-size:clamp(0.9rem, 4vw, 1.1rem); text-transform:uppercase; margin-bottom:.6rem; white-space: nowrap; display: flex; align-items: center; justify-content: center; gap: 8px; color: var(--dark);">
+        <span style="font-size: 1.3rem;">🎁</span> Gifts &amp; Blessings
+      </h4>
+      <p style="color:var(--text-muted); font-style:italic; font-size:0.9rem;">"Your love, presence, and prayers are the greatest gifts we could ever ask for."</p>
+    </div>
+  </section>
+
+  <!-- CONTACT US -->
+  <section class="contact-section slide-anim anim-from-right">
+    <div class="main-card">
+      <div class="icon-circle">📞</div>
+      <h2>Contact Us</h2>
+      <p class="sub">For queries, blessings, and assistance</p>
+
+      <div class="contact-row">
+        <div class="contact-info">
+          <h4>Mr. Jacob Sr.</h4>
+          <p>Father of the Groom</p>
+        </div>
+        <div class="contact-buttons">
+          <a href="tel:+910000000000" class="btn-circle btn-dark">📞</a>
+          <a href="https://wa.me/910000000000" class="btn-circle btn-green">💬</a>
+        </div>
+      </div>
+
+      <div class="contact-row">
+        <div class="contact-info">
+          <h4>Mr. David Jacob</h4>
+          <p>Brother of the Groom</p>
+        </div>
+        <div class="contact-buttons">
+          <a href="tel:+910000000000" class="btn-circle btn-dark">📞</a>
+          <a href="https://wa.me/910000000000" class="btn-circle btn-green">💬</a>
+        </div>
+      </div>
+      
+      <div class="contact-row" style="margin-bottom:0;">
+        <div class="contact-info">
+          <h4>Mr. Thomas Kiruba</h4>
+          <p>Brother of the Bride</p>
+        </div>
+        <div class="contact-buttons">
+          <a href="tel:+910000000000" class="btn-circle btn-dark">📞</a>
+          <a href="https://wa.me/910000000000" class="btn-circle btn-green">💬</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <h2>Jacob &amp; Kiruba</h2>
+    <p>#JacobFoundHisKiruba • 12TH DECEMBER 2026</p>
+    <div class="credits">Dhayan</div>
+  </footer>
+
+</main>
+
+<canvas id="confettiCanvas"></canvas>
+
+<script>
+/* ═══════════ FORCE REFRESH TO INITIAL STATE ═══════════ */
+// Prevents browsers from restoring the scroll position on refresh
+if ('scrollRestoration' in history) {
+  history.scrollRestoration = 'manual';
+}
+window.scrollTo(0, 0);
+
+/* ═══════════ DOOR OPENER & INITIAL CONFETTI ═══════════ */
+const opener = document.getElementById('opener');
+const site   = document.getElementById('site');
+
+opener.addEventListener('click', () => {
+  opener.classList.add('opening');
+  
+  // Confetti bursts when doors open
+  setTimeout(() => {
+    launchConfetti(window.innerWidth / 2, window.innerHeight / 2, 250);
+  }, 800);
+
+  // Remove doors & trigger animations
+  setTimeout(() => {
+    opener.remove();
+    site.classList.add('revealed');
+    window.scrollTo(0,0);
+    
+    // Add slight delay to let the Hero section animate first, then start observing
+    setTimeout(() => {
+      checkScrollAnimation();
+    }, 1500);
+
+  }, 1500);
+});
+
+/* ═══════════ SCROLL ANIMATION OBSERVER ═══════════ */
+function checkScrollAnimation() {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('appear');
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.slide-anim').forEach(el => {
+    observer.observe(el);
+  });
+}
+
+/* ═══════════ AUDIO ═══════════ */
+const audio = document.getElementById('audio');
+const playBtn = document.getElementById('playBtn');
+playBtn.addEventListener('click', () => {
+  if (audio.paused) { audio.play().catch(()=>{}); playBtn.textContent = '⏸ Pause Theme'; }
+  else { audio.pause(); playBtn.textContent = '▶ Play Titanic Theme'; }
+});
+
+/* ═══════════ COUNTDOWN ═══════════ */
+const target = new Date('2026-12-12T19:00:00').getTime();
+const E = {d:document.getElementById('d'),h:document.getElementById('h'),
+           m:document.getElementById('m'),s:document.getElementById('s')};
+function tick(){
+  let diff = Math.max(0, target - Date.now());
+  const d = Math.floor(diff/86400000); diff %= 86400000;
+  const h = Math.floor(diff/3600000);  diff %= 3600000;
+  const m = Math.floor(diff/60000);    diff %= 60000;
+  const s = Math.floor(diff/1000);
+  const pad = n => String(n).padStart(2,'0');
+  E.d.textContent = pad(d); E.h.textContent = pad(h);
+  E.m.textContent = pad(m); E.s.textContent = pad(s);
+}
+setInterval(tick,1000); tick();
+
+/* ═══════════ CIRCULAR SCRATCH ═══════════ */
+const canvas = document.getElementById('scratchCanvas');
+const ctx = canvas.getContext('2d');
+const dpr = window.devicePixelRatio || 1;
+const SIZE = 180; 
+
+function initScratch(){
+  canvas.width = SIZE * dpr; canvas.height = SIZE * dpr;
+  canvas.style.width = SIZE + 'px'; canvas.style.height = SIZE + 'px';
+  ctx.setTransform(dpr,0,0,dpr,0,0);
+
+  const g = ctx.createRadialGradient(SIZE/2,SIZE/2,10,SIZE/2,SIZE/2,SIZE/2);
+  g.addColorStop(0,'#f9e9a8'); g.addColorStop(.4,'#e5c655');
+  g.addColorStop(.75,'#c9a227'); g.addColorStop(1,'#a67c1a');
+  ctx.fillStyle = g;
+  ctx.beginPath(); ctx.arc(SIZE/2,SIZE/2,SIZE/2,0,Math.PI*2); ctx.fill();
+
+  ctx.fillStyle = 'rgba(255,255,255,0.5)'; ctx.font = '9px serif';
+  ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  for (let i = 0; i < 10; i++){
+    const a = (i/10)*Math.PI*2 + .3;
+    const r = 65 + Math.sin(i*7)*8;
+    ctx.fillText('✦', SIZE/2 + Math.cos(a)*r, SIZE/2 + Math.sin(a)*r);
+  }
+  ctx.fillStyle = 'rgba(255,255,255,0.95)'; ctx.font = 'bold 11px "Cormorant Garamond", serif';
+  ctx.fillText('S C R A T C H', SIZE/2, SIZE/2 - 6);
+  ctx.font = '20px serif'; ctx.fillText('♥', SIZE/2, SIZE/2 + 16);
+}
+initScratch();
+
+let drawing = false, revealed = false, checkStarted = false;
+
+function scratch(e){
+  if (revealed) return;
+  const r = canvas.getBoundingClientRect();
+  ctx.globalCompositeOperation = 'destination-out';
+  ctx.beginPath(); ctx.arc(e.clientX - r.left, e.clientY - r.top, 20, 0, Math.PI*2); ctx.fill();
+}
+
+function startCheck(){
+  if (checkStarted) return;
+  checkStarted = true;
+  setInterval(() => {
+    if (revealed) return;
+    const img = ctx.getImageData(0,0,canvas.width,canvas.height);
+    const data = img.data;
+    let trans = 0, total = 0;
+    for (let i = 3; i < data.length; i += 16){
+      total++; if (data[i] < 50) trans++;
+    }
+    if (trans/total > .55) { revealed = true; revealCard(); }
+  }, 400);
+}
+
+canvas.addEventListener('pointerdown', e => {
+  drawing = true; scratch(e); startCheck(); canvas.setPointerCapture(e.pointerId);
+});
+canvas.addEventListener('pointermove', e => { if (drawing) scratch(e); });
+canvas.addEventListener('pointerup', () => drawing = false);
+canvas.addEventListener('pointercancel', () => drawing = false);
+canvas.addEventListener('pointerleave', () => drawing = false);
+
+function revealCard(){
+  const card = canvas.closest('.main-card');
+  const r = card.getBoundingClientRect();
+  canvas.style.opacity = '0';
+  setTimeout(() => {
+    canvas.style.display = 'none';
+    launchConfetti(r.left + r.width/2, r.top + r.height/2, 100);
+  }, 700);
+}
+
+/* ═══════════ CONFETTI ENGINE ═══════════ */
+const cCanvas = document.getElementById('confettiCanvas');
+const cCtx = cCanvas.getContext('2d');
+
+function launchConfetti(ox, oy, count){
+  cCanvas.style.display = 'block';
+  cCanvas.width = window.innerWidth;
+  cCanvas.height = window.innerHeight;
+  const colors = ['#c9a227','#f6e27a','#d4af37','#b8860b','#e8c4c4','#f5d9b8','#ffffff','#a8c4a0'];
+  const parts = [];
+  for (let i = 0; i < count; i++){
+    const a = Math.random()*Math.PI*2;
+    const v = 5 + Math.random()*18;
+    parts.push({
+      x: ox, y: oy, vx: Math.cos(a)*v, vy: Math.sin(a)*v - 10,
+      size: 4 + Math.random()*8, color: colors[Math.floor(Math.random()*colors.length)],
+      rotation: Math.random()*Math.PI*2, rotSpeed: (Math.random()-.5)*.6,
+      shape: Math.random() > .4 ? 'rect' : 'circle', life: 1, decay: .008 + Math.random()*.006
+    });
+  }
+  let frame = 0;
+  function animate(){
+    cCtx.clearRect(0,0,cCanvas.width,cCanvas.height);
+    let alive = false;
+    parts.forEach(p => {
+      if (p.life <= 0) return;
+      alive = true;
+      p.vy += .45; p.vx *= .98; p.vy *= .98;
+      p.x += p.vx; p.y += p.vy;
+      p.rotation += p.rotSpeed; p.life -= p.decay;
+      cCtx.save();
+      cCtx.translate(p.x, p.y); cCtx.rotate(p.rotation);
+      cCtx.globalAlpha = Math.max(0, p.life); cCtx.fillStyle = p.color;
+      if (p.shape === 'rect') cCtx.fillRect(-p.size/2,-p.size/4,p.size,p.size/2);
+      else { cCtx.beginPath(); cCtx.arc(0,0,p.size/2,0,Math.PI*2); cCtx.fill(); }
+      cCtx.restore();
+    });
+    frame++;
+    if (alive && frame < 400) requestAnimationFrame(animate);
+    else cCanvas.style.display = 'none';
+  }
+  animate();
+}
+</script>
+</body>
+</html>
