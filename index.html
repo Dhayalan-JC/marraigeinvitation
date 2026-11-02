@@ -366,7 +366,6 @@
     position: relative;
     box-shadow: 0 10px 30px rgba(0,0,0,0.04);
   }
-  /* Double border effect */
   .contact-card-wrapper::before {
     content: '';
     position: absolute;
@@ -478,7 +477,7 @@
     background: #231f20;
   }
   .phone-btn svg {
-    fill: #f4d58d; /* Gold color for the phone icon */
+    fill: #f4d58d;
   }
   .wa-btn {
     background: #25d366;
@@ -491,7 +490,8 @@
   .footer{padding:2rem 1rem 4rem;text-align:center;}
   .footer h2{font-family:'Great Vibes',cursive;text-transform:none;color:var(--gold);font-size:2.2rem;margin-bottom:0.8rem;}
   .footer p{text-transform:uppercase;letter-spacing:.1em;font-size:.75rem;color:var(--text-muted);margin-bottom:1.5rem;}
-  .footer .credits{font-size:.7rem;border-top:1px solid #eee;padding-top:1.5rem;display:inline-block; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase;}
+  /* Removed text-transform: uppercase; so Dhayalan displays properly */
+  .footer .credits{font-size:.7rem;border-top:1px solid #eee;padding-top:1.5rem;display:inline-block; font-weight: 600; letter-spacing: 0.05em;}
 
   /* SCRATCH CARD */
   .scratch-wrapper{position:relative;width:180px;height:180px;margin:1.2rem auto;border-radius:50%;overflow:hidden;box-shadow:0 4px 20px rgba(201,162,39,.35),0 0 0 3px var(--gold),0 0 0 7px #fff,0 0 0 8px var(--gold);}
@@ -896,7 +896,7 @@
   <footer class="footer">
     <h2>Jacob &amp; Kiruba</h2>
     <p>#JacobFoundHisKiruba • 12TH DECEMBER 2026</p>
-    <div class="credits">Dhayan</div>
+    <div class="credits">Dhayalan</div>
   </footer>
 
 </main>
