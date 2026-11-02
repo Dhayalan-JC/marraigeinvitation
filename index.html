@@ -168,6 +168,86 @@
     font-family:inherit;font-size:0.95rem;border-radius:50px;cursor:pointer;transition:.3s;font-weight:600;}
   .play:active{background:var(--gold);color:#fff;}
 
+  /* ═══════════ MOMENTS CAROUSEL ═══════════ */
+  .carousel-container {
+    position: relative;
+    width: 100%;
+    max-width: 380px;
+    margin: 1rem auto 0.5rem;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+  }
+  .carousel-track {
+    display: flex;
+    transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+    will-change: transform;
+  }
+  .carousel-slide {
+    min-width: 100%;
+    position: relative;
+  }
+  .carousel-slide img {
+    width: 100%;
+    height: 420px;
+    object-fit: cover;
+    display: block;
+    border-radius: 16px;
+  }
+  .slide-caption {
+    position: absolute;
+    bottom: 20px;
+    width: 100%;
+    text-align: center;
+    color: #fff;
+    font-size: 0.85rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+    font-weight: 600;
+  }
+  .carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(43, 33, 24, 0.4);
+    color: white;
+    border: 1px solid rgba(255,255,255,0.3);
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(4px);
+    z-index: 10;
+    transition: background 0.3s;
+  }
+  .carousel-btn:hover { background: rgba(43, 33, 24, 0.8); }
+  .carousel-btn.prev { left: 12px; }
+  .carousel-btn.next { right: 12px; }
+  
+  .carousel-dots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 1rem;
+  }
+  .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #e0dcd3;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  .dot.active { 
+    background: var(--gold); 
+    transform: scale(1.2);
+  }
+
   /* TIMELINE */
   .timeline-container{max-width:450px;width:100%;margin:0 auto;position:relative;text-align:left;padding: 0 5px;}
   .timeline-line{position:absolute;left:15px;top:20px;bottom:20px;width:2px;background:var(--gold-border);}
@@ -386,8 +466,46 @@
     </div>
   </section>
 
+  <!-- MOMENTS OF LOVE (CAROUSEL) -->
+  <section class="moments-section slide-anim anim-from-right">
+    <div class="main-card" style="padding-bottom: 1.5rem;">
+      <h2>Moments of Love</h2>
+      <p class="sub">Our Journey &amp; Inspirations</p>
+      
+      <div class="carousel-container">
+        <div class="carousel-track" id="carouselTrack">
+          <!-- Slide 1 -->
+          <div class="carousel-slide">
+            <img src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Moment 1">
+            <div class="slide-caption">FRIENDS. LOVERS. FOREVER.</div>
+          </div>
+          <!-- Slide 2 -->
+          <div class="carousel-slide">
+            <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Moment 2">
+            <div class="slide-caption">OUR JOURNEY BEGINS</div>
+          </div>
+          <!-- Slide 3 -->
+          <div class="carousel-slide">
+            <img src="https://images.unsplash.com/photo-1519741497674-611481863552?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Moment 3">
+            <div class="slide-caption">TO HAVE AND TO HOLD</div>
+          </div>
+        </div>
+        <!-- Controls -->
+        <button class="carousel-btn prev" id="prevBtn">&#10094;</button>
+        <button class="carousel-btn next" id="nextBtn">&#10095;</button>
+      </div>
+
+      <!-- Dots -->
+      <div class="carousel-dots" id="carouselDots">
+        <span class="dot active" data-index="0"></span>
+        <span class="dot" data-index="1"></span>
+        <span class="dot" data-index="2"></span>
+      </div>
+    </div>
+  </section>
+
   <!-- PROGRAM TIMELINE -->
-  <section class="timeline-section slide-anim anim-from-right">
+  <section class="timeline-section slide-anim anim-from-left">
     <div class="icon-circle">⏱</div>
     <h2>Program Timeline</h2>
     <p class="sub">Order of Events for our Blessed Day</p>
@@ -446,7 +564,7 @@
   </section>
 
   <!-- DRESS CODE -->
-  <section class="dress-section slide-anim anim-from-left">
+  <section class="dress-section slide-anim anim-from-right">
     <div class="main-card">
       <div class="icon-circle">👕</div>
       <h2>Dress Code</h2>
@@ -466,7 +584,7 @@
   </section>
 
   <!-- PRE-WEDDING EVENTS -->
-  <section class="events-section slide-anim anim-from-right">
+  <section class="events-section slide-anim anim-from-left">
     <div class="main-card">
       <p style="font-family:'Great Vibes',cursive; font-size:1.5rem; color:var(--gold); margin-bottom:0.3rem;">Join the Festivities</p>
       <h2>Pre-Wedding Events</h2>
@@ -490,7 +608,7 @@
   </section>
 
   <!-- TRANSPORTATION & GIFTS -->
-  <section class="info-section slide-anim anim-from-left" style="padding-top:0;">
+  <section class="info-section slide-anim anim-from-right" style="padding-top:0;">
     <div class="main-card" style="margin-bottom:1rem; padding:1.2rem; text-align:left; display:flex; gap:0.8rem; align-items:flex-start;">
       <div class="icon-circle" style="margin:0; background:#e8f5e9; color:#3a7a5c; border-color:#c8e6c9; flex-shrink:0;">🚌</div>
       <div>
@@ -508,7 +626,7 @@
   </section>
 
   <!-- CONTACT US -->
-  <section class="contact-section slide-anim anim-from-right">
+  <section class="contact-section slide-anim anim-from-left">
     <div class="main-card">
       <div class="icon-circle">📞</div>
       <h2>Contact Us</h2>
@@ -576,7 +694,6 @@ opener.addEventListener('click', () => {
   opener.classList.add('opening');
 
   // ▶ Auto-start the theme song on the user gesture (door open)
-  // Browsers allow audio playback here because this is a user click.
   audio.play().catch(() => {
     // If autoplay is blocked, user can still press the Play button
     playBtn.textContent = '▶ Play Theme Song';
@@ -655,6 +772,55 @@ function tick(){
   E.m.textContent = pad(m); E.s.textContent = pad(s);
 }
 setInterval(tick,1000); tick();
+
+/* ═══════════ MOMENTS CAROUSEL SCRIPT ═══════════ */
+const track = document.getElementById('carouselTrack');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const dots = document.querySelectorAll('.dot');
+let currentIndex = 0;
+const totalSlides = dots.length;
+let autoSlideInterval;
+
+function updateCarousel() {
+  track.style.transform = `translateX(-${currentIndex * 100}%)`;
+  dots.forEach((dot, index) => {
+    dot.classList.toggle('active', index === currentIndex);
+  });
+}
+
+function nextSlide() {
+  currentIndex = (currentIndex + 1) % totalSlides;
+  updateCarousel();
+}
+
+function prevSlide() {
+  currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+  updateCarousel();
+}
+
+function startAutoSlide() {
+  autoSlideInterval = setInterval(nextSlide, 3500); // Auto slide every 3.5s
+}
+
+function resetAutoSlide() {
+  clearInterval(autoSlideInterval);
+  startAutoSlide();
+}
+
+nextBtn.addEventListener('click', () => { nextSlide(); resetAutoSlide(); });
+prevBtn.addEventListener('click', () => { prevSlide(); resetAutoSlide(); });
+
+dots.forEach((dot, index) => {
+  dot.addEventListener('click', () => {
+    currentIndex = index;
+    updateCarousel();
+    resetAutoSlide();
+  });
+});
+
+// Start auto slide
+startAutoSlide();
 
 /* ═══════════ CIRCULAR SCRATCH ═══════════ */
 const canvas = document.getElementById('scratchCanvas');
