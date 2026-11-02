@@ -248,6 +248,92 @@
     transform: scale(1.2);
   }
 
+  /* ═══════════ NEW COUNTDOWN DESIGN ═══════════ */
+  .countdown-section {
+    padding: 3rem 1rem;
+  }
+  .script-text {
+    font-family: 'Great Vibes', cursive;
+    font-size: 1.8rem;
+    color: var(--gold);
+    margin-bottom: 0.2rem;
+    line-height: 1;
+  }
+  .countdown-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.6rem, 6vw, 2.1rem);
+    font-weight: 600;
+    color: var(--dark);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    line-height: 1.2;
+    white-space: normal;
+  }
+  .gold-divider {
+    width: 60px;
+    height: 2px;
+    background: var(--gold);
+    margin: 1rem auto 2rem auto;
+  }
+  .countdown {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    width: 100%;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+  .countdown-box {
+    flex: 1;
+    background: #fff;
+    border: 1px solid var(--gold-border);
+    border-radius: 16px;
+    padding: 1.2rem 0.3rem 1rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .countdown-box span {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.8rem, 7vw, 2.4rem);
+    font-weight: 700;
+    color: var(--dark);
+    line-height: 1;
+    display: block;
+    margin-bottom: 6px;
+  }
+  /* Last box (seconds) number in gold */
+  .countdown-box:last-child span {
+    color: var(--gold);
+  }
+  .countdown-box small {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(0.55rem, 2.5vw, 0.7rem);
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    display: block;
+  }
+
+  /* Alternating Animations */
+  @keyframes floatTopBottom {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+  @keyframes floatBottomTop {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(8px); }
+  }
+
+  .countdown-box:nth-child(1) { animation: floatTopBottom 3.5s ease-in-out infinite; }
+  .countdown-box:nth-child(2) { animation: floatBottomTop 3.5s ease-in-out infinite; }
+  .countdown-box:nth-child(3) { animation: floatTopBottom 3.5s ease-in-out infinite; }
+  .countdown-box:nth-child(4) { animation: floatBottomTop 3.5s ease-in-out infinite; }
+
+
   /* TIMELINE */
   .timeline-container{max-width:450px;width:100%;margin:0 auto;position:relative;text-align:left;padding: 0 5px;}
   .timeline-line{position:absolute;left:15px;top:20px;bottom:20px;width:2px;background:var(--gold-border);}
@@ -304,12 +390,6 @@
   .scratch-reveal .date-num{font-family:'Great Vibes',cursive;font-size:3rem;color:var(--dark);line-height:.9;}
   .scratch-reveal .year{font-size:.75rem;letter-spacing:.15em;color:var(--text-muted);margin-top:.2rem;}
   #scratchCanvas{position:absolute;inset:0;width:100%;height:100%;touch-action:none;transition:opacity .8s ease;cursor:pointer;}
-
-  /* COUNTDOWN */
-  .countdown{display:flex;gap:0.6rem;justify-content:center;flex-wrap:wrap;margin-top:1.2rem;}
-  .countdown div{min-width:65px;background:#fff;border:1px solid var(--gold-border);border-radius:10px;padding:0.8rem 0.4rem;}
-  .countdown span{display:block;font-size:1.8rem;color:var(--gold);font-weight:600;line-height:1;}
-  .countdown small{font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);margin-top:5px;display:block;}
 
   #confettiCanvas{position:fixed;inset:0;pointer-events:none;z-index:9999;display:none;}
 </style>
@@ -454,15 +534,29 @@
     </div>
   </section>
 
-  <!-- COUNTDOWN -->
+  <!-- COUNTDOWN (NEW DESIGN) -->
   <section class="countdown-section slide-anim anim-from-left">
-    <h2>Counting Down</h2>
-    <p class="sub">To Forever</p>
+    <p class="script-text">With Love &amp; Anticipation</p>
+    <h2 class="countdown-title">Counting Down To<br>Forever</h2>
+    <div class="gold-divider"></div>
+    
     <div class="countdown">
-      <div><span id="d">00</span><small>Days</small></div>
-      <div><span id="h">00</span><small>Hours</small></div>
-      <div><span id="m">00</span><small>Mins</small></div>
-      <div><span id="s">00</span><small>Secs</small></div>
+      <div class="countdown-box">
+        <span id="d">00</span>
+        <small>Days</small>
+      </div>
+      <div class="countdown-box">
+        <span id="h">00</span>
+        <small>Hours</small>
+      </div>
+      <div class="countdown-box">
+        <span id="m">00</span>
+        <small>Minutes</small>
+      </div>
+      <div class="countdown-box">
+        <span id="s">00</span>
+        <small>Seconds</small>
+      </div>
     </div>
   </section>
 
@@ -680,7 +774,6 @@
 
 <script>
 /* ═══════════ FORCE REFRESH TO INITIAL STATE ═══════════ */
-// Prevents browsers from restoring the scroll position on refresh
 if ('scrollRestoration' in history) {
   history.scrollRestoration = 'manual';
 }
@@ -689,13 +782,14 @@ window.scrollTo(0, 0);
 /* ═══════════ DOOR OPENER & INITIAL CONFETTI ═══════════ */
 const opener = document.getElementById('opener');
 const site   = document.getElementById('site');
+const audio   = document.getElementById('audio');
+const playBtn = document.getElementById('playBtn');
 
 opener.addEventListener('click', () => {
   opener.classList.add('opening');
 
   // ▶ Auto-start the theme song on the user gesture (door open)
   audio.play().catch(() => {
-    // If autoplay is blocked, user can still press the Play button
     playBtn.textContent = '▶ Play Theme Song';
   });
 
@@ -733,21 +827,10 @@ function checkScrollAnimation() {
   });
 }
 
-/* ═══════════ AUDIO ═══════════ */
-const audio   = document.getElementById('audio');
-const playBtn = document.getElementById('playBtn');
-
-// Keep the button label in sync with the real audio state
-audio.addEventListener('play', () => {
-  playBtn.textContent = '⏸ Pause Theme';
-});
-audio.addEventListener('pause', () => {
-  playBtn.textContent = '▶ Play Theme Song';
-});
-// Safety: if the file is missing, reset the label
-audio.addEventListener('error', () => {
-  playBtn.textContent = '▶ Play Theme Song';
-});
+/* ═══════════ AUDIO CONTROLS ═══════════ */
+audio.addEventListener('play', () => { playBtn.textContent = '⏸ Pause Theme'; });
+audio.addEventListener('pause', () => { playBtn.textContent = '▶ Play Theme Song'; });
+audio.addEventListener('error', () => { playBtn.textContent = '▶ Play Theme Song'; });
 
 playBtn.addEventListener('click', () => {
   if (audio.paused) {
@@ -800,7 +883,7 @@ function prevSlide() {
 }
 
 function startAutoSlide() {
-  autoSlideInterval = setInterval(nextSlide, 3500); // Auto slide every 3.5s
+  autoSlideInterval = setInterval(nextSlide, 3500);
 }
 
 function resetAutoSlide() {
@@ -819,7 +902,6 @@ dots.forEach((dot, index) => {
   });
 });
 
-// Start auto slide
 startAutoSlide();
 
 /* ═══════════ CIRCULAR SCRATCH ═══════════ */
