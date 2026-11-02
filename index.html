@@ -350,8 +350,8 @@
       <div class="icon-circle">🎵</div>
       <h2>Our Theme Song</h2>
       <p class="sub">Interactive Card</p>
-      <button id="playBtn" class="play">▶ Play Titanic Theme</button>
-      <audio id="audio" loop src="song.mp3"></audio>
+      <button id="playBtn" class="play">▶ Play Theme Song</button>
+      <audio id="audio" loop preload="auto" src="marraigesong.mp3"></audio>
     </div>
   </section>
 
@@ -574,7 +574,14 @@ const site   = document.getElementById('site');
 
 opener.addEventListener('click', () => {
   opener.classList.add('opening');
-  
+
+  // ▶ Auto-start the theme song on the user gesture (door open)
+  // Browsers allow audio playback here because this is a user click.
+  audio.play().catch(() => {
+    // If autoplay is blocked, user can still press the Play button
+    playBtn.textContent = '▶ Play Theme Song';
+  });
+
   // Confetti bursts when doors open
   setTimeout(() => {
     launchConfetti(window.innerWidth / 2, window.innerHeight / 2, 250);
@@ -610,11 +617,27 @@ function checkScrollAnimation() {
 }
 
 /* ═══════════ AUDIO ═══════════ */
-const audio = document.getElementById('audio');
+const audio   = document.getElementById('audio');
 const playBtn = document.getElementById('playBtn');
+
+// Keep the button label in sync with the real audio state
+audio.addEventListener('play', () => {
+  playBtn.textContent = '⏸ Pause Theme';
+});
+audio.addEventListener('pause', () => {
+  playBtn.textContent = '▶ Play Theme Song';
+});
+// Safety: if the file is missing, reset the label
+audio.addEventListener('error', () => {
+  playBtn.textContent = '▶ Play Theme Song';
+});
+
 playBtn.addEventListener('click', () => {
-  if (audio.paused) { audio.play().catch(()=>{}); playBtn.textContent = '⏸ Pause Theme'; }
-  else { audio.pause(); playBtn.textContent = '▶ Play Titanic Theme'; }
+  if (audio.paused) {
+    audio.play().catch(()=>{});
+  } else {
+    audio.pause();
+  }
 });
 
 /* ═══════════ COUNTDOWN ═══════════ */
